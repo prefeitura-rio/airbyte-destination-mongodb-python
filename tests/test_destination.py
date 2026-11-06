@@ -79,6 +79,18 @@ def test_overwrite_replaces_data_and_keeps_secondary_indexes(db, config):
     assert temp_collections(db) == []
 
 
+def test_overwrite_keeps_text_index(db, config):
+    db["orgaos"].insert_many([{"nome_ua": "Secretaria de Saude"}, {"nome_ua": "Secretaria de Fazenda"}])
+    db["orgaos"].create_index([("nome_ua", "text")], default_language="portuguese")
+
+    run(config, catalog("orgaos"), [record("orgaos", {"nome_ua": "Secretaria de Educacao"}), record("orgaos", {"nome_ua": "Secretaria de Obras"})])
+
+    text_index = next(i for i in db["orgaos"].list_indexes() if "_fts" in i["key"])
+    assert text_index["weights"] == {"nome_ua": 1}
+    assert text_index["default_language"] == "portuguese"
+    assert db["orgaos"].count_documents({"$text": {"$search": "educacao"}}) == 1
+
+
 def test_no_records_keeps_existing_collection(db, config):
     seed(db, "empresas", 3)
 
