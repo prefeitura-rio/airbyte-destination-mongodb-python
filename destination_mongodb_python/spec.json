@@ -13,6 +13,7 @@
         "title": "Connection String",
         "type": "string",
         "description": "MongoDB connection string. Example: mongodb://user:password@host1:27017,host2:27017/?replicaSet=rs0",
+        "airbyte_secret": true,
         "order": 0
       },
       "database": {
@@ -27,6 +28,15 @@
         "description": "How many documents should be imported together. Default 1000",
         "default": 1000,
         "order": 2
+      },
+      "min_records_ratio": {
+        "title": "Minimum Records Ratio",
+        "type": "number",
+        "description": "In overwrite mode, the existing collection is only replaced when the new data has at least this fraction of its current document count. 0 disables the check. Default 0.5",
+        "default": 0.5,
+        "minimum": 0,
+        "maximum": 1,
+        "order": 3
       }
     }
   }

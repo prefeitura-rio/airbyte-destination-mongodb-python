@@ -11,6 +11,7 @@ RUN chown -R airbyte:airbyte /airbyte/integration_code /tmp
 
 ENV AIRBYTE_ENTRYPOINT="python /airbyte/integration_code/main.py"
 LABEL io.airbyte.name="ghcr.io/prefeitura-rio/airbyte-destination-mongodb-python"
+LABEL org.opencontainers.image.source="https://github.com/prefeitura-rio/airbyte-destination-mongodb-python"
 
 USER airbyte
 ENTRYPOINT ["python", "/airbyte/integration_code/main.py"]

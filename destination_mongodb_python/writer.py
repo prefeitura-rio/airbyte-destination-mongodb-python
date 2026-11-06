@@ -14,12 +14,11 @@ logger = getLogger("airbyte")
 
 
 class MongoDBWriter:
-    write_buffer: list[tuple[str, Mapping]] = []
-
     def __init__(self, client: MongoClient, database: str, batch_size: int = 1000):
         self.client = client
         self.database = database
         self.batch_size = batch_size or 1000
+        self.write_buffer: list[tuple[str, Mapping]] = []
 
     def queue_write_operation(self, stream_name: str, data: Mapping):
         # Add _id field if not present to ensure uniqueness
