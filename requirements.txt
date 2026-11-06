@@ -1,0 +1,2 @@
+airbyte-cdk==6.53.0
+pymongo==4.13.0

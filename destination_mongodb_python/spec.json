@@ -1,0 +1,33 @@
+{
+  "documentationUrl": "https://docs.airbyte.com/integrations/destinations/mongodb-python",
+  "supported_destination_sync_modes": ["overwrite", "append"],
+  "supportsIncremental": true,
+  "connectionSpecification": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Destination MongoDB (Python SDK)",
+    "type": "object",
+    "required": ["connection_string", "database"],
+    "additionalProperties": false,
+    "properties": {
+      "connection_string": {
+        "title": "Connection String",
+        "type": "string",
+        "description": "MongoDB connection string. Example: mongodb://user:password@host1:27017,host2:27017/?replicaSet=rs0",
+        "order": 0
+      },
+      "database": {
+        "title": "Database Name",
+        "type": "string",
+        "description": "Name of the database to write to",
+        "order": 1
+      },
+      "batch_size": {
+        "title": "Batch Size",
+        "type": "integer",
+        "description": "How many documents should be imported together. Default 1000",
+        "default": 1000,
+        "order": 2
+      }
+    }
+  }
+}
